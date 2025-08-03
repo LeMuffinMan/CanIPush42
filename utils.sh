@@ -1,3 +1,5 @@
+#!/bin/bash
+
 check_flags()
 {
   for flag in "-Wextra" "-Werror" "-Wall"; do
