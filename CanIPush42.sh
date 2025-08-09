@@ -7,17 +7,17 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' 
 
-MAKEFILE_CONTENT=$(<Makefile)
-ERRORS=0
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/utils.sh"
 # compile(), relink(), check_flags() check_phony()
 
-if [[ -z "Makefile" ]]; then
+if [[ ! -f $PWD/Makefile ]]; then
   echo "No Makefile found"
-  return 1
+  exit 1
 fi
+
+MAKEFILE_CONTENT=$(<Makefile)
+ERRORS=0
 
 echo -n "Compilations flag    : "
 check_flags
