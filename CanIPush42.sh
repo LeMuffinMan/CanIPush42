@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Stop the script if any command fails, if using undefined variables, or on pipe errors
-set -euo pipefail
+# set -euo pipefail
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -10,8 +10,9 @@ NC='\033[0m'
 MAKEFILE_CONTENT=$(<Makefile)
 ERRORS=0
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 # compile(), relink(), check_flags() check_phony()
-source utils.sh
 
 if [[ -z "Makefile" ]]; then
   echo "No Makefile found"
@@ -102,9 +103,8 @@ relink
 
 make fclean > /dev/null 2>&1
 
-# - Check for binary presence
+# - Check for binary 
 # - Check for object files (.o)
-# - Check project folder structure (src, include, Makefile)
 
 if [[ $ERRORS -eq 0 ]]; then
   echo -e "${GREEN}Ready to push !${NC}"
